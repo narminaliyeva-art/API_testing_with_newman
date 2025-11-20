@@ -23,7 +23,7 @@ jobs:
       - name: Run Postman Tests with HTML report
         run: |
           mkdir -p newman
-          newman run SimpleAPI.postman_environment.json \
+          newman run API_Testing_postman_collection.json \
              -r cli,htmlextra \
             --reporter-htmlextra-export newman/report.html
 
