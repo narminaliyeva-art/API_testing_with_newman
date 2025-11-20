@@ -1,0 +1,759 @@
+{
+	"info": {
+		"_postman_id": "c4644f30-1f49-41b0-9874-4e1bba903c83",
+		"name": "API Testing Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49115644"
+	},
+	"item": [
+		{
+			"name": "API Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token uğurla alındı\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    const token = pm.response.json().accessToken;\r",
+							"    pm.collectionVariables.set(\"accessToken\", token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\": \"Postman\",\r\n   \"clientEmail\": \"Catryy@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api-clients/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api-clients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseBody = pm.response.json();\r",
+							"var accessToken = responseBody.accessToken;\r",
+							"pm.collectionVariables.set(\"accessToken\", accessToken);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Token uğurla alındı\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    const token = pm.response.json().accessToken;\r",
+							"    pm.expect(token).to.exist;\r",
+							"    pm.collectionVariables.set(\"accessToken\", token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-length": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"clientName\": \"TestUserX\",\r\n  \"clientEmail\": \"testuserxx@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api-clients/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api-clients",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"var arraylength = response.length;\r",
+							"var randomIndex = Math.floor(Math.random() * (arraylength));\r",
+							"var bookID = response[randomIndex].id;\r",
+							"pm.collectionVariables.set(\"bookId\",bookID);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status kodu 200-dür\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cavab kitab siyahısıdır\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Kitab siyahısı boş deyil\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Hər kitabın adı və ID-si mövcuddur\", function () {\r",
+							"    const books = pm.response.json();\r",
+							"    books.forEach(book => {\r",
+							"        pm.expect(book).to.have.property('id');\r",
+							"        pm.expect(book).to.have.property('name');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Random kitab ID-ni seç və yadda saxla\r",
+							"//const books = pm.response.json();\r",
+							"//if (books.length > 0) {\r",
+							"  //  const randomIndex = Math.floor(Math.random() * books.length);\r",
+							"  //  const randomBookId = books[randomIndex].id;\r",
+							"  //  pm.collectionVariables.set(\"bookId\", randomBookId);\r",
+							"   // pm.test(\"Təsadüfi kitabın ID-si yadda saxlanıldı\", function () {\r",
+							"   //     pm.expect(randomBookId).to.not.be.undefined;\r",
+							"   // });\r",
+							"//}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status kodu 200-dür\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cavab JSON formatındadır\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Kitab məlumatları mövcuddur\", function () {\r",
+							"    const book = pm.response.json();\r",
+							"    pm.expect(book).to.have.property('id');\r",
+							"    pm.expect(book).to.have.property('name');\r",
+							"    pm.expect(book).to.have.property('type'); // məsələn: fiction / non-fiction\r",
+							"    pm.expect(book).to.have.property('available');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Kitabın ID-si göndərilənlə eynidir\", function () {\r",
+							"    const book = pm.response.json();\r",
+							"    pm.expect(book.id).to.eql(Number(pm.collectionVariables.get(\"bookId\")));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/:bookId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":bookId"
+					],
+					"variable": [
+						{
+							"key": "bookId",
+							"value": "1",
+							"description": " "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order a Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let cbookId = parseInt(pm.collectionVariables.get(\"bookId\"));\r",
+							"\r",
+							"function increasebookId(id){\r",
+							"    return id + 1;\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Sifariş uğurla yaradıldı\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cavabda sifarişin ID-si mövcuddur\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.have.property('orderId');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Sifarişin ID-si yadda saxlanıldı\", function () {\r",
+							"    const orderId = pm.response.json().orderId;\r",
+							"    pm.collectionVariables.set(\"orderId\", orderId);\r",
+							"    pm.expect(orderId).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Sifariş olunan kitab ID-si düzgün ötürülüb\", function () {\r",
+							"    const sentBookId = Number(pm.request.body.raw.match(/\"bookId\":\\s*(\\d+)/)[1]);\r",
+							"    pm.expect(sentBookId).to.eql(Number(pm.collectionVariables.get(\"bookId\")));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bookId\": {{bookId}},\r\n  \"customerName\": \"{{$randomFirstName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseJson = pm.response.json();\r",
+							"\r",
+							"// Status kodunun 200 olduğunu yoxlayırıq\r",
+							"pm.test(\"Status kodu 200 olmalıdır\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Cavabın JSON formatında olub-olmadığını yoxlayırıq\r",
+							"pm.test(\"Cavab JSON formatında olmalıdır\", function () {\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// Sifarişlər massiv şəklində gəlməlidir\r",
+							"pm.test(\"Cavab bir massiv formatında olmalıdır\", function () {\r",
+							"    pm.expect(responseJson).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"// Əgər sifarişlər varsa, onların daxilində id və bookId sahələri olmalıdır\r",
+							"if (responseJson.length > 0) {\r",
+							"    pm.test(\"Hər sifarişdə 'id' və 'bookId' olmalıdır\", function () {\r",
+							"        responseJson.forEach(order => {\r",
+							"            pm.expect(order).to.have.property(\"id\");\r",
+							"            pm.expect(order).to.have.property(\"bookId\");\r",
+							"        });\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.test(\"Sifarişlər yoxdur, lakin bu normaldır\", function () {\r",
+							"        pm.expect(responseJson.length).to.eql(0);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseJson = pm.response.json();\r",
+							"\r",
+							"// Status kodunun 200 olduğunu yoxlayırıq\r",
+							"pm.test(\"Status kodu 200 olmalıdır\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Cavabın JSON formatında olub-olmadığını yoxlayırıq\r",
+							"pm.test(\"Cavab JSON formatında olmalıdır\", function () {\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"// Cavab obyekt şəklində olmalıdır\r",
+							"pm.test(\"Cavab bir obyekt olmalıdır\", function () {\r",
+							"    pm.expect(responseJson).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"// Cavabda id, bookId və customerName sahələri olmalıdır\r",
+							"pm.test(\"Sifariş obyektində 'id', 'bookId' və 'customerName' olmalıdır\", function () {\r",
+							"    pm.expect(responseJson).to.have.property(\"id\");\r",
+							"    pm.expect(responseJson).to.have.property(\"bookId\");\r",
+							"    pm.expect(responseJson).to.have.property(\"customerName\");\r",
+							"});\r",
+							"\r",
+							"// Göstərilən orderId ilə cavab uyğun gəlməlidir (əgər URL-də path parametrdən istifadə edirsinizsə)\r",
+							"pm.test(\"Göstərilən orderId ilə cavabdakı id uyğun olmalıdır\", function () {\r",
+							"    const requestOrderId = pm.request.url.variables.get(\"orderId\");\r",
+							"    pm.expect(responseJson.id.toString()).to.eql(requestOrderId);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response;\r",
+							"let body = res.json();\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status 200 və ya 204 olmalıdır\", () => {\r",
+							"    pm.expect([200, 204]).to.include(res.code);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"if (res.code === 200) {\r",
+							"    pm.test(\"Cavab JSON obyektidir\", () => {\r",
+							"        pm.expect(body).to.be.an(\"object\");\r",
+							"    });\r",
+							"    pm.test(\"Mesajda uğurla sözü olmalıdır\", () => {\r",
+							"        pm.expect(body.message).to.match(/uğurla/i);\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"customerName\": \"Frankk\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Book deleted successfully\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let res = pm.response;\r",
+							"let body = res.json();\r",
+							"\r",
+							"pm.test(\"Status 200 olmalıdır\", () => {\r",
+							"    pm.expect(res.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Yenilənmə uğurla baş tutub\", () => {\r",
+							"    pm.expect(body.updated).to.eql(true);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Deletion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "accessToken",
+			"value": ""
+		},
+		{
+			"key": "bookId",
+			"value": ""
+		},
+		{
+			"key": "orderId",
+			"value": ""
+		}
+	]
+}
