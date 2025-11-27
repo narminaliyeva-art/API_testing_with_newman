@@ -24,7 +24,7 @@ jobs:
         run: |
           mkdir -p newman
           newman run ${GITHUB_WORKSPACE}/API_Testing_collection.json \
-            -e /home/runner/work/API_testing_with_newman/API_environment.json \
+            -e ${GITHUB_WORKSPACE}/API_environment.json \
             -r cli,htmlextra \
             --reporter-htmlextra-export newman/report.html
 
