@@ -1,0 +1,824 @@
+{
+	"info": {
+		"_postman_id": "df387fdc-7ba4-440a-be4c-b6b99cd9ffb9",
+		"name": "API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49119357",
+		"_collection_link": "https://narmin1221aliyeva-6743061.postman.co/workspace/Narmin-Aliyeva's-Workspace~7cec4aa6-a3f7-4fb1-8a28-d117c58dc70c/collection/49119357-df387fdc-7ba4-440a-be4c-b6b99cd9ffb9?action=share&source=collection_link&creator=49119357"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseBody = pm.response.json(); // Parse the response body as JSON",
+							"var accessToken = responseBody.accessToken; // ",
+							"pm.collectionVariables.set(\"accessToken\", accessToken); // Store the accessToken in a collection variable",
+							"",
+							"pm.environment.set(\"accessToken\", accessToken); // Store the accessToken in an environment variable",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property(\"accessToken\");",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"clientName\": \"{{$randomFirstName}}\" ,\n    \"clientEmail\" : \"{{$randomEmail}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api-clients",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Domain",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var a= \"Narmin\"",
+							"var b= \"Hello\"",
+							"",
+							"console.log (b+ \" \" +a);",
+							"",
+							"var user= { ",
+							"name: \"Narmin\",",
+							"age: 30,",
+							"mail: \"Narmin@gmail.com\"",
+							"}",
+							"",
+							"console.log(user)",
+							"console.log (user.mail)",
+							"",
+							"",
+							"var user_2= [\"narmin\", 30,\"narmin@gmail.com\"];",
+							"",
+							"console.log(user_2[0])",
+							"",
+							" var books = [ {",
+							"        \"id\": 1,",
+							"        \"name\": \"The Russian\",",
+							"        \"type\": \"fiction\",",
+							"        \"available\": true",
+							"    },",
+							"    {",
+							"        \"id\": 3,",
+							"        \"name\": \"The Vanishing Half\",",
+							"        \"type\": \"fiction\",",
+							"        \"available\": true",
+							"    },",
+							"    {",
+							"        \"id\": 4,",
+							"        \"name\": \"The Midnight Library\",",
+							"        \"type\": \"fiction\",",
+							"        \"available\": true",
+							"    },",
+							"    {",
+							"        \"id\": 6,",
+							"        \"name\": \"Viscount Who Loved Me\",",
+							"        \"type\": \"fiction\",",
+							"        \"available\": true",
+							"    },",
+							"    {",
+							"        \"id\": 2,",
+							"        \"name\": \"Just as I Am\",",
+							"        \"type\": \"non-fiction\",",
+							"        \"available\": false",
+							"    },",
+							"    {",
+							"        \"id\": 5,",
+							"        \"name\": \"Untamed\",",
+							"        \"type\": \"non-fiction\",",
+							"        \"available\": true",
+							"    }",
+							"]",
+							"",
+							"   ",
+							"console.log(books[0].name)",
+							"",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property(\"message\");",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property(\"status\");",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var arrayLength = response.length;",
+							"// minimum 0,maksimum arrayLength -1 ",
+							"var randomIndex = Math.floor(Math.random() * arrayLength);",
+							"var bookID = response[randomIndex].id;",
+							"pm.collectionVariables.set(\"bookID\", bookID);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    const a = pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
+							"    pm.expect(pm.response.json()[randomIndex]).to.be.an('object').that.has.property('available');",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property('id');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/:bookID",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":bookID"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "bookID",
+							"value": "{{bookID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order a Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"const jsonData = pm.response.json();",
+							"",
+							"if (jsonData.orderId) {",
+							"    pm.collectionVariables.set(\"orderId\", jsonData.orderId);",
+							"    console.log (\"Saved collection variable orderId\",jsonData.orderId);",
+							"} else {",
+							"    console.log(\"No orderId found in response body\");",
+							"}",
+							"",
+							"if (jsonData.orderId) {",
+							"    pm.environment.set(\"orderId\", jsonData.orderId);",
+							"    console.log (\"Environment variable orderId saved:\",jsonData.orderId);",
+							"} else {",
+							"    console.warn(\"orderId not found in response\");",
+							"}",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property('orderId');",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function plus0ne(value){",
+							"    return value + 1;",
+							"}",
+							"",
+							"let currentBookID=Number(pm.collectionVariables.get(\"bookID\"));",
+							"console.log(currentBookID);",
+							"",
+							"pm.collectionVariables.set(\"bookID\",plus0ne(currentBookID));",
+							"console.log(plus0ne(currentBookID));",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n  \"bookId\":{{bookID}},\n  \"customerName\": \"{{$randomFirstName}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    const a = pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;",
+							"    pm.expect(pm.response.json()[0]).to.be.an('object').that.has.property('id');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property('id');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body has no message\", function () {",
+							"    let jsonData = {};",
+							"",
+							"    try {",
+							"        jsonData = pm.response.json();",
+							"    } catch (e) {",
+							"        jsonData = {};",
+							"    }",
+							"    ",
+							"    pm.expect(!jsonData.hasOwnProperty('message') || jsonData.message === '' || jsonData.message === null).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"customerName\": \"John\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check update",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property('id');",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "non-fiction",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains no message\", function () {",
+							"    let jsonData = {};",
+							"",
+							"    try {",
+							"        jsonData = pm.response.json();",
+							"    } catch (e) {",
+							"        jsonData = {};",
+							"    }",
+							"    ",
+							"    pm.expect(!jsonData.hasOwnProperty('message') || jsonData.message === '' || jsonData.message === null).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/:orderId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						":orderId"
+					],
+					"variable": [
+						{
+							"key": "orderId",
+							"value": "{{orderId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check deletion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Response body contains the correct message\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('array');",
+							"    const deletedOrder = pm.response.json().find(order => order.id === '4aiF0R8-ruLJREvfqDDBG');",
+							"",
+							"    pm.expect(deletedOrder).to.not.exist;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://simple-books-api.click"
+		},
+		{
+			"key": "accessToken",
+			"value": "be09cc76bd6ff39f1c395ae217a46794086c269823a1c7ac573b4547d994dd33"
+		},
+		{
+			"key": "bookID",
+			"value": 7
+		},
+		{
+			"key": "orderId",
+			"value": "3myZIc57A_ml3eLxkwXcp"
+		}
+	]
+}
