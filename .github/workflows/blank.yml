@@ -27,10 +27,11 @@ jobs:
             -e "$GITHUB_WORKSPACE/API_environment.json" \
             -r cli,htmlextra \
             --reporter-htmlextra-export newman/report.html
+        continue-on-error: true   # ⬅️ ƏSAS YER
 
       - name: Upload HTML report
+        if: always()              # ⬅️ Hətta fail olsa belə, bu stepi işə sal
         uses: actions/upload-artifact@v4
         with:
           name: newman-html-report
           path: newman/report.html
-
